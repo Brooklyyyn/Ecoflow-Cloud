@@ -20,7 +20,7 @@ from .device_data import DeviceData, DeviceOptions
 _LOGGER = logging.getLogger(__name__)
 
 ECOFLOW_DOMAIN = "ecoflow_cloud"
-CONFIG_VERSION = 13
+CONFIG_VERSION = 14
 
 _PLATFORMS = {
     Platform.BINARY_SENSOR,
@@ -211,6 +211,14 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry):
         updated = hass.config_entries.async_update_entry(config_entry, version=13, options=new_options)
         _LOGGER.info("Config entries updated to version %d", config_entry.version)
 
+    if config_entry.version == 13:
+        new_options = dict(config_entry.options)
+        for device_options in new_options[CONF_DEVICE_LIST].values():
+            device_options[OPTS_ENERGY_UPDATE_INTERVAL_SEC] = DEFAULT_ENERGY_UPDATE_INTERVAL_SEC
+
+        updated = hass.config_entries.async_update_entry(config_entry, version=14, options=new_options)
+        _LOGGER.info("Config entries updated to version %d", config_entry.version)
+
     return updated
 
 
@@ -228,12 +236,7 @@ def extract_devices(entry: ConfigEntry) -> dict[str, DeviceData]:
                 entry.options[CONF_DEVICE_LIST][sn][OPTS_VERBOSE_STATUS_MODE],
                 entry.options[CONF_DEVICE_LIST][sn][OPTS_ASSUME_OFFLINE_SEC],
                 entry.options[CONF_DEVICE_LIST][sn][OPTS_RESET_SENSORS_ON_OFFLINE],
-                # Read with a default instead of a VERSION bump + migration: an absent key simply means
-                # "off", and keeping the entry version unchanged lets a user roll back to an older
-                # release without "migration failed".
-                entry.options[CONF_DEVICE_LIST][sn].get(
-                    OPTS_ENERGY_UPDATE_INTERVAL_SEC, DEFAULT_ENERGY_UPDATE_INTERVAL_SEC
-                ),
+                entry.options[CONF_DEVICE_LIST][sn][OPTS_ENERGY_UPDATE_INTERVAL_SEC],
             ),
             None,
             None,
