@@ -33,6 +33,10 @@ Restart Home Assistant. Once restart is done, use `Add Integration` → `Ecoflow
 ## Device Management
 For information on how to add, remove, and configure devices, please refer to the [Device Management Documentation](docs/device_management.md).
 
+## Example dashboards
+Ready-to-paste Lovelace examples live in [docs/dashboards](docs/dashboards/README.md).
+Currently: PowerOcean Pro (US) with its Smart Panel.
+
 ## EcoFlow API modes
 
 The integration supports two EcoFlow cloud API modes. They expose different data,
@@ -987,15 +991,13 @@ from Home Assistant.
 
 </p></details>
 
-<details><summary> OCEAN_SMART_PANEL <i>(sensors: 131)</i> </summary>
+<details><summary> OCEAN_SMART_PANEL <i>(sensors: 139)</i> </summary>
 <p>
 
 *Sensors*
 - Battery Level
 - Home Load Power (energy:  _[Device Name]_ Home Load  Energy)
-- Grid Power (energy:  _[Device Name]_ Grid  Energy)
 - Storage Output Power
-- Status
 - Grid L1 Power  _(disabled)_
 - Grid L2 Power  _(disabled)_
 - Grid L1 Voltage  _(disabled)_
@@ -1122,16 +1124,71 @@ from Home Assistant.
 - Circuit 40 Power (energy:  _[Device Name]_ Circuit 40  Energy)
 - Circuit 40 Voltage  _(disabled)_
 - Circuit 40 Current  _(disabled)_
+- Status
+- Grid Power
+- Grid Import Power (energy:  _[Device Name]_ Grid Import  Energy)
+- Grid Export Power (energy:  _[Device Name]_ Grid Export  Energy)
+- Operating Mode  _(disabled)_
+- Grid Connection
+- Grid Meter 964  _(disabled)_
+- Grid Meter 965  _(disabled)_
+- Grid Meter 966  _(disabled)_
+- Grid Meter 967  _(disabled)_
 
 </p></details>
 
-<details><summary> OCEAN_PRO <i>(sensors: 11)</i> </summary>
+<details><summary> OCEAN_PRO <i>(sensors: 72)</i> </summary>
 <p>
 
 *Sensors*
 - Inverter Output Power
+- Total Solar
+- Grid Power
+- Battery Pack Voltage  _(disabled)_
+- Battery Packs Online  _(disabled)_
+- Battery Pack Current (raw)  _(disabled)_
 - Battery Power
+- PCS Phase A Voltage
+- PCS Phase A Current
+- PCS Phase A Power
+- PCS Phase B Voltage
+- PCS Phase B Current
+- PCS Phase B Power
 - Status
+- Grid Frequency
+- Grid Voltage L1
+- Grid Voltage L2
+- Grid Current L1
+- Grid Current L2
+- DC Bus Voltage
+- DC Bus Voltage 2
+- PV1 MPPT Fault Code  _(disabled)_
+- PV1 MPPT State  _(disabled)_
+- PV2 MPPT Fault Code  _(disabled)_
+- PV2 MPPT State  _(disabled)_
+- PV3 MPPT Fault Code  _(disabled)_
+- PV3 MPPT State  _(disabled)_
+- PV4 MPPT Fault Code  _(disabled)_
+- PV4 MPPT State  _(disabled)_
+- PV5 MPPT Fault Code  _(disabled)_
+- PV5 MPPT State  _(disabled)_
+- PV6 MPPT Fault Code  _(disabled)_
+- PV6 MPPT State  _(disabled)_
+- PV7 MPPT Fault Code  _(disabled)_
+- PV7 MPPT State  _(disabled)_
+- PV8 MPPT Fault Code  _(disabled)_
+- PV8 MPPT State  _(disabled)_
+- MPPT Parallel Detect  _(disabled)_
+- MPPT Bus Voltage Setpoint  _(disabled)_
+- MPPT Bus Voltage  _(disabled)_
+- MPPT Power Limit  _(disabled)_
+- MPPT Warning  _(disabled)_
+- MPPT Insulation Check Done  _(disabled)_
+- Device Temperature 1  _(disabled)_
+- Device Temperature 2  _(disabled)_
+- Device Temperature 3  _(disabled)_
+- Device Temperature 4  _(disabled)_
+- Device Temperature 5  _(disabled)_
 - PV1 Power (energy:  _[Device Name]_ PV1  Energy)
 - PV2 Power (energy:  _[Device Name]_ PV2  Energy)
 - PV3 Power (energy:  _[Device Name]_ PV3  Energy)
@@ -1140,6 +1197,22 @@ from Home Assistant.
 - PV6 Power (energy:  _[Device Name]_ PV6  Energy)
 - PV7 Power (energy:  _[Device Name]_ PV7  Energy)
 - PV8 Power (energy:  _[Device Name]_ PV8  Energy)
+- PV1 Voltage  _(disabled)_
+- PV1 Current  _(disabled)_
+- PV2 Voltage  _(disabled)_
+- PV2 Current  _(disabled)_
+- PV3 Voltage  _(disabled)_
+- PV3 Current  _(disabled)_
+- PV4 Voltage  _(disabled)_
+- PV4 Current  _(disabled)_
+- PV5 Voltage  _(disabled)_
+- PV5 Current  _(disabled)_
+- PV6 Voltage  _(disabled)_
+- PV6 Current  _(disabled)_
+- PV7 Voltage  _(disabled)_
+- PV7 Current  _(disabled)_
+- PV8 Voltage  _(disabled)_
+- PV8 Current  _(disabled)_
 
 </p></details>
 

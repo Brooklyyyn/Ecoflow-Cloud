@@ -20,7 +20,7 @@ from .device_data import DeviceData, DeviceOptions
 _LOGGER = logging.getLogger(__name__)
 
 ECOFLOW_DOMAIN = "ecoflow_cloud"
-CONFIG_VERSION = 13
+CONFIG_VERSION = 14
 
 _PLATFORMS = {
     Platform.BINARY_SENSOR,
@@ -66,10 +66,12 @@ OPTS_REFRESH_PERIOD_SEC: Final = "refresh_period_sec"
 OPTS_ASSUME_OFFLINE_SEC: Final = "assume_offline_sec"
 OPTS_VERBOSE_STATUS_MODE: Final = "verbose_status_mode"
 OPTS_RESET_SENSORS_ON_OFFLINE: Final = "reset_sensors_on_offline"
+OPTS_ENERGY_UPDATE_INTERVAL_SEC: Final = "energy_update_interval_sec"
 
 DEFAULT_REFRESH_PERIOD_SEC: Final = 5
 DEFAULT_ASSUME_OFFLINE_SEC: Final = 300  # 5 minutes
 DEFAULT_RESET_SENSORS_ON_OFFLINE: Final = True
+DEFAULT_ENERGY_UPDATE_INTERVAL_SEC: Final = 0  # 0 = write on every source update
 
 _STATUS_COORDINATOR_KEY = "__status_coordinator"
 
@@ -209,6 +211,14 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry):
         updated = hass.config_entries.async_update_entry(config_entry, version=13, options=new_options)
         _LOGGER.info("Config entries updated to version %d", config_entry.version)
 
+    if config_entry.version == 13:
+        new_options = dict(config_entry.options)
+        for device_options in new_options[CONF_DEVICE_LIST].values():
+            device_options[OPTS_ENERGY_UPDATE_INTERVAL_SEC] = DEFAULT_ENERGY_UPDATE_INTERVAL_SEC
+
+        updated = hass.config_entries.async_update_entry(config_entry, version=14, options=new_options)
+        _LOGGER.info("Config entries updated to version %d", config_entry.version)
+
     return updated
 
 
@@ -226,6 +236,7 @@ def extract_devices(entry: ConfigEntry) -> dict[str, DeviceData]:
                 entry.options[CONF_DEVICE_LIST][sn][OPTS_VERBOSE_STATUS_MODE],
                 entry.options[CONF_DEVICE_LIST][sn][OPTS_ASSUME_OFFLINE_SEC],
                 entry.options[CONF_DEVICE_LIST][sn][OPTS_RESET_SENSORS_ON_OFFLINE],
+                entry.options[CONF_DEVICE_LIST][sn][OPTS_ENERGY_UPDATE_INTERVAL_SEC],
             ),
             None,
             None,
